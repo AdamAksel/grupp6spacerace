@@ -1,3 +1,0 @@
-class unMovable {
-    constructor ()
-}
