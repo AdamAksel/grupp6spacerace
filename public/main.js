@@ -1,1 +1,3 @@
-// Hej från AdamAksel branch
+class unMovable {
+    constructor ()
+}
