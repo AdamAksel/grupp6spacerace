@@ -1,7 +1,12 @@
-import { Position } from "./component.js";
+import { Position, Velocity } from './component.js'
 
-class Entity {
-    constructor(x, y) {
-        this.position = new Position(x, y)
-    }
+export class Entity {
+  constructor(x, y, dx, dy) {
+    this.position = new Position(x, y)
+    this.velocity = new Velocity(dx, dy)
+    this.color = 'rgb(255,255,255)'
+  }
+  tick() {}
+  draw() {}
+  movement() {}
 }
