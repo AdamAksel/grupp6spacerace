@@ -1,16 +1,19 @@
 import { Entity } from './entity.js'
-
 export class Player extends Entity {
-  constructor(x, y, dx, dy, keyUp, keyDown) {
+  constructor(x, y, dx, dy, keyUp, keyDown, scoreContainer, shootKey) {
     super(x, y, dx, dy)
-    this.moveArray = [false, false]
+    this.moveArray = [false, false, false]
     this.keyUp = keyUp
     this.keyDown = keyDown
     this.score = 0
+    this.scoreContainer = scoreContainer
+    this.missile = false
+    this.shootKey = shootKey
   }
   tick(context, deltaTime, height) {
     this.draw(context)
     this.movement(deltaTime, height)
+    this.resetAndScore(height)
   }
 
   draw(context) {
@@ -62,6 +65,7 @@ export class Player extends Entity {
       context.fill()
     }
   }
+
   movement(deltaTime, height) {
     if (this.moveArray[0]) {
       this.position.y -= this.velocity.dy * deltaTime
@@ -77,7 +81,12 @@ export class Player extends Entity {
     if (e.key === this.keyDown) {
       this.moveArray[1] = true
     }
+    if (e.key === this.shootKey && this.missile === false) {
+      this.moveArray[2] = true
+      this.missile = true
+    }
   }
+
   handleKeyUp(e) {
     if (e.key === this.keyUp) {
       this.moveArray[0] = false
@@ -85,5 +94,13 @@ export class Player extends Entity {
     if (e.key === this.keyDown) {
       this.moveArray[1] = false
     }
+  }
+
+  resetAndScore(height) {
+    if (this.position.y < 0) {
+      this.position.y = height - 25
+      this.score++
+    }
+    this.scoreContainer.innerHTML = this.score
   }
 }

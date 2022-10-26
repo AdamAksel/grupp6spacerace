@@ -1,8 +1,8 @@
 import { Entity } from './entity.js'
 
 export class Enemy extends Entity {
-  constructor(radius) {
-    super()
+  constructor(x, y, dx, dy, radius) {
+    super(x, y, dx, dy)
     this.radius = radius
   }
 
